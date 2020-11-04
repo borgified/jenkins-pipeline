@@ -1,0 +1,17 @@
+import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
+
+GIT_LOCATION="https://github.com/MindStrongHealth/jctest.git"
+SLACK_CHANNEL="#jc-testing"
+BRANCH=env.BRANCH_NAME
+
+jctest()
+jcSendFailureSlackNotification(channel: "jc-testing", currentStep: "hello", errorMsg: "erroring", JOB_NAME: env.JOB_NAME, BUILD_URL: env.BUILD_URL)
+jcCheckout(branch: "$BRANCH", git_location: "$GIT_LOCATION")
+jcSendSuccessSlackNotification(channel: "jc-testing", JOB_NAME: env.JOB_NAME, BUILD_URL: env.BUILD_URL, releaseVersion: "releaseversion")
+jcBuild(BRANCH: "$BRANCH", JOB_NAME: env.JOB_NAME, BUILD_URL: env.BUILD_URL)
+jcPushtoENV(ENV: "scrum-koala", service: "service-usersynch", region: "us-west-2", image: "service-login-syncuserstoauth0", tag: "2.2.15")
+stage("manual stage 1"){
+  sh '''
+    echo "hola"
+    '''
+}

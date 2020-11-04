@@ -1,0 +1,10 @@
+stage("auto stage 1"){
+  sh '''
+    echo "bye"
+    '''
+}
+stage("auto stage 2"){
+  sh '''
+    echo "adios"
+    '''
+}

@@ -1,0 +1,6 @@
+stage("common stage"){
+  println(env.BRANCH_NAME)
+  sh '''
+    echo "common"
+    '''
+}
